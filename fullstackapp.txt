@@ -70,8 +70,14 @@
 //9. from root, init local git repo and commit
 
 //10. create heroku repo
+    //heroku is going to read through the files we push up to serverland - heroku is going to need the information from our .env file to establish a connection to the database (the dbstring)
+    //we push to heroku using git commands on the command line - if the environment variables are in the gitignore file, heroku will return an error - the server won't be able to read the connection string because it won't have the components needed to connect to the database! - need to make the env variable visible to push up to heroku to be read
+    //remove the .env file from the gitignore file before pushing to heroku
 
 //heroku login
-//heroku create simple-rap-api
+//heroku create app-name-here
 //echo "web: node server.js" > Procfile
 //git add . 
+//git commit -m "changes"
+//git push heroku main
+//------test heroku link
