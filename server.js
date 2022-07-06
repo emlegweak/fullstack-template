@@ -29,11 +29,11 @@ app.use(express.json())
 app.use(cors())
 
 //routes
-app.get('/', async (req, res) => {
-    try{
+app.get('/', async (request, response) => {
+    try {
         response.render('index.ejs')
-    }catch(error){
-        response.status(500).send({message: error.message})
+    } catch (error) {
+        response.status(500).send({ message: error.message })
     }
 })
 
