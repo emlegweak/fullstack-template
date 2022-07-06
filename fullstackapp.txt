@@ -1,0 +1,77 @@
+//Real 1. create server.js file
+
+//1. Initialize npm and install dependencies
+//npm is the node package manager - helps us install the other things that we need to use to make the process of building/deploying our app a bit easier - initialize by npm init in the terminal - hit enter until all the nonsense goes away (LOL)
+
+//dependencies - express, dotenv, cors, mongodb, ejs, nodemon (--save-dev)
+//install in the terminal by "npm i express"
+//if you forget what dependencies you've installed, look in package-lock.json  
+    //express - node.js web framework - powerful models for URL routing and making HTTP requests/responses
+    //dotenv - lets us create environment variables and hide them away from our main code in an .env file
+    //cors - bypass cross-origin request blocks that can appear in the browser - middleware that sets the cross-origin access policy (prevents CORS errors)
+    //mongodb - database
+        //WHY USE A DATABASE? WHO CARES? we care - let's pretend we're delivery people for UPS: if we have a few packages, they're easy to carry around but let's say we get 100 packages...or somebody orders a pool table? we need something to store data offsite when it gets big, unwieldy, complicated where we can go to pull it out when we need it - the database is the UPS truck (we get the packages only when we need them - it holds everything, doesn't get tired, keeps them safe, can hold complicated/heavy items) - frees up the server (UPS person) to only fetch things when we need them
+        //get complication out of JS files and into a place where they can be safely stored away
+    //ejs - template that we use to generate HTML on the fly based on the data we're generating from our server - similar in syntax to JS so it's convenient
+    //nodemon - keeps the server running/refreshes when changes are made - stops you from manually having to restart the server
+        //typing npm install nodemon --save-dev adds nodemon to the dev dependencies because we DO NOT want nodemon in production
+
+//2. Require dependencies in server.js
+    //what does this mean?? requiring dependencies in the server.js file lets us access their unique capabilities that come preloaded with each of these dependencies
+        //const express = require('express');
+        //const app = express();
+        //const cors = require('cors');
+        //const MongoClient = require('mongodb').MongoClient
+
+//3. Declare variables
+    //why declare variables outside of a function? - scope - if you declare a variable globally (outside a function), you can access that variable from anywhere in the code, inside any function
+    //alternatively if you declare a variable within a function, you cannot use them outside the function
+
+//4. Connect to MongoDB - add connection string to .env file
+    //why do we put the DB_STRING value in a .env file? - mongoDB requires a unique connection string which contains information about the data that we're trying to connect to as well as our username/password for our mongoDB database - if you're in a production environment with sensitive data, you don't want that jawn just hangin out there! bad news bears
+    //to get the connection string, set up your database in Mongo Atlas!
+    //DON'T FORGET TO PUT YOUR .ENV FILE IN .GITIGNORE 
+
+    //express makes connecting to mongodb easy- "ya don't gotta think too hard"
+    //pass in database connection string (variable)
+        //MongoClient.connect(dbConnectionString);
+
+        //inside mongodb = the database is like the truck, the collections are like the boxes, the documents are the things inside the boxes
+
+//5. Create PORT
+    //helps us initialize our endpoint - the point outside the file that is listening for input
+    //can hide in .env file and set condition for heroku to choose a port if needed
+
+//----test mongodb and port connection
+    //few ways to do this
+    //1. to manually fire up your server, type node server.js in the terminal
+    //2. set up nodemon to restart server dynamically each time we make a change
+        -go into package.json file and create a script to launch nodemon "dev": "nodemon server.js" - allows us to launch nodemon server.js from a custom script called "dev"
+        //launch nodemon by typing npm run dev
+
+//6. Set middleware
+    //when data is flowing back and forth from the server to client, middleware helps us perform transformations, read/format data in a way that all parties can understand - cleans up what's flowing back and forth
+    //all of the middleware runs before our routes - put it BEFORE ALL CRUD OPERATIONS
+    //initialized using use() or set()
+        //app.set('view engine', 'ejs') sets up EJS
+        //app.use(express.static('public')) serves up all the files from the public folder if anyone accesses them by accessing the root of the app 
+        //app.use(express.urlencoded({extended:true})) helping us parse URLs that are being sent back and forth
+        //app.use(express.json()) ...(WHO IS JSON??? WHO IS SHE) objects are formatted as json in our routes to/from servers, this helps express parse the json and figure out how to pull it apart/read and understand the data that is being passed back and forth
+        //app.use(cors()) allows for cross-origin requests and stops the stupid CORS error from happening in the browser
+
+    //why don't we have to declare bodyParser explicitly anymore? it's an older library that express has built into the same logic that we're using now for URL encoding/JSON
+
+//7. create gitignore file
+
+//8. Create public and Views folders - add main.js and style.css to Public and index.ejs to Views (and add content to those files)
+    //why use EJS instead of HTML? EJS allows us to dynamically take in data from our server/database and render it as HTML appropriately - if you're getting data from a live app, you're going to have a lot of variation in the data depending on the state of the code - EJS can better interpret the data coming in from the server/database
+    //DON'T FORGET TO LINK TO CSS STYLESHEET AND MAIN.JS FROM EJS
+
+//9. from root, init local git repo and commit
+
+//10. create heroku repo
+
+//heroku login
+//heroku create simple-rap-api
+//echo "web: node server.js" > Procfile
+//git add . 
